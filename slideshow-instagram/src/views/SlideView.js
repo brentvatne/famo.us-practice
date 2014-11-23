@@ -12,7 +12,9 @@ define(function(require, exports, module) {
 
     // Views do not have a default size
     this.rootModifier = new StateModifier({
-      size: this.options.size
+      size: this.options.size,
+      origin: [0.5,0],
+      align: [0.5,0]
     })
 
     this.mainNode = this.add(this.rootModifier);
@@ -25,7 +27,7 @@ define(function(require, exports, module) {
   SlideView.prototype = Object.create(View.prototype);
   SlideView.prototype.constructor = SlideView;
   SlideView.DEFAULT_OPTIONS = {
-    size: [400, 450],
+    size: [400, 350],
     filmBorder: 15,
     photoBorder: 3,
     photoUrl: SlideData.defaultImage

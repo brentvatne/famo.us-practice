@@ -4,7 +4,8 @@ define(function(require, exports, module) {
   var apiConfig = {
     userId: InstagramApiAuth.userId,
     accessToken: InstagramApiAuth.accessToken,
-    instagramUrl: 'https://api.instagram.com/v1/users/{{userId}}/media/recent?access_token={{accessToken}}',
+    clientId: InstagramApiAuth.clientId,
+    instagramUrl: 'https://api.instagram.com/v1/users/{{userId}}/media/recent?client_id={{clientId}}',
   };
 
   var SlideDataInstagram = {
@@ -14,7 +15,7 @@ define(function(require, exports, module) {
   SlideDataInstagram.getUrl = function() {
     return apiConfig.instagramUrl.
       replace('{{userId}}', apiConfig.userId).
-      replace('{{accessToken}}', apiConfig.accessToken);
+      replace('{{clientId}}', apiConfig.clientId);
 
   };
 

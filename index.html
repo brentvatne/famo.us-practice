@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Famo.us-practice by brentvatne</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Famo.us-practice</h1>
+          <h2>Notes and exercises while going through the &#39;famous university&#39; http://famo.us/university</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/brentvatne/famo.us-practice/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/brentvatne/famo.us-practice/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/brentvatne/famo.us-practice" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <p>Getting started with famo.us/angular</p>
+
+<h2>
+<a id="first-without-angular" class="anchor" href="#first-without-angular" aria-hidden="true"><span class="octicon octicon-link"></span></a>First, without Angular</h2>
+
+<h3>
+<a id="basics" class="anchor" href="#basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h3>
+
+<p>The Surface is the most basic renderable - it is equivalent to a
+div.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> Engine <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>famous/core/Engine<span class="pl-pds">'</span></span>);
+<span class="pl-s">var</span> Surface <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>famous/core/Surface<span class="pl-pds">'</span></span>);
+
+<span class="pl-s">var</span> mainContext <span class="pl-k">=</span> Engine.createContext();
+
+<span class="pl-s">var</span> firstSurface <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Surface</span>({
+  content<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">"</span>hello world<span class="pl-pds">"</span></span>
+});
+
+mainContext.<span class="pl-s3">add</span>(firstSurface);</pre></div>
+
+<p>You can modify the content later</p>
+
+<div class="highlight highlight-javascript"><pre>firstSurface.setContent(<span class="pl-s1"><span class="pl-pds">'</span>&lt;h1&gt;HELLO WORLD&lt;/h1&gt;<span class="pl-pds">'</span></span>);</pre></div>
+
+<p>You can style it in the same way as css</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> firstSurface <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Surface</span>({
+  content<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>hello world<span class="pl-pds">'</span></span>,
+  properties<span class="pl-k">:</span> {
+    color<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>white<span class="pl-pds">'</span></span>,
+    textAlign<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>center<span class="pl-pds">'</span></span>,
+    backgroundColor<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>#FA5C4F<span class="pl-pds">'</span></span>
+  }
+});</pre></div>
+
+<p>If size isn't specified, it inherits the size of the parent.</p>
+
+<p>You can be explicit about size by setting the <code>size</code> of a surface:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c">// Specify size in pixels with [x, y]</span>
+<span class="pl-c">// Specify size in only one dimension with [undefined, y] or [x, undefined]</span>
+<span class="pl-c">// Have the surface auto-size according to the content with [true, true]</span>
+
+<span class="pl-s">var</span> firstSurface <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Surface</span>({
+  size<span class="pl-k">:</span> [<span class="pl-c1">true</span>, <span class="pl-c1">true</span>],
+  content<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>hello world<span class="pl-pds">'</span></span>,
+  properties<span class="pl-k">:</span> {
+    color<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>white<span class="pl-pds">'</span></span>,
+    textAlign<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>center<span class="pl-pds">'</span></span>,
+    backgroundColor<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>#FA5C4F<span class="pl-pds">'</span></span>
+  }
+});</pre></div>
+
+<p>A surface that displays your name, is 200px wide and 100% in height, has</p>
+
+<h1>
+<a id="fa5c4f-background-color-has-white-center-aligned-text-has-40px-font-size" class="anchor" href="#fa5c4f-background-color-has-white-center-aligned-text-has-40px-font-size" aria-hidden="true"><span class="octicon octicon-link"></span></a>FA5C4F background color, has white, center aligned text, has 40px font size,</h1>
+
+<p>has 15px border radius</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> Engine <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>famous/core/Engine<span class="pl-pds">'</span></span>);
+<span class="pl-s">var</span> Surface <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>famous/core/Surface<span class="pl-pds">'</span></span>);
+<span class="pl-s">var</span> mainContext <span class="pl-k">=</span> Engine.createContext();
+
+<span class="pl-s">var</span> surface <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Surface</span>({
+  content<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>&lt;h4&gt;Brent Vatne&lt;/h1&gt;<span class="pl-pds">'</span></span>,
+  size<span class="pl-k">:</span> [<span class="pl-c1">200</span>, <span class="pl-c1">undefined</span>],
+  properties<span class="pl-k">:</span> {
+    textAlign<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>center<span class="pl-pds">'</span></span>,
+    background<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>#FA5C4F<span class="pl-pds">'</span></span>,
+    color<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>#fff<span class="pl-pds">'</span></span>,
+    fontSize<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>40px<span class="pl-pds">'</span></span>,
+    borderRadius<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>15px<span class="pl-pds">'</span></span>
+  }
+})
+
+mainContext.<span class="pl-s3">add</span>(surface);</pre></div>
+
+<p>You can position a surface using a modifier</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> stateModifier <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">StateModifier</span>({
+  transform<span class="pl-k">:</span> Transform.translate(<span class="pl-c1">150</span>, <span class="pl-c1">100</span>, <span class="pl-c1">0</span>)
+});
+
+mainContext.<span class="pl-s3">add</span>(stateModifier).<span class="pl-s3">add</span>(surface);</pre></div>
+
+<p>You can chain modifiers, but the order of the chaining matters! eg: if
+you rotate and then translate, it is different than translate and then
+rotate.</p>
+
+<div class="highlight highlight-javascript"><pre>mainContext
+  .<span class="pl-s3">add</span>(translateModifierOne)
+  .<span class="pl-s3">add</span>(rotateModifierOne)
+  .<span class="pl-s3">add</span>(redSurface);</pre></div>
+
+<p>You can branch modifiers by saving a reference to the context with the
+modifier applied:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> node <span class="pl-k">=</span> mainContext.<span class="pl-s3">add</span>(downMod);
+node.<span class="pl-s3">add</span>(leftSurface);
+node.<span class="pl-s3">add</span>(rightMod).<span class="pl-s3">add</span>(rightSurface);</pre></div>
+
+<p>You can change the origin, align, opacity, scale, etc.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> originModifier <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">StateModifier</span>({
+  opacity<span class="pl-k">:</span> <span class="pl-c1">0.8</span>,
+  transform<span class="pl-k">:</span> Transform.scale(<span class="pl-c1">4</span>, <span class="pl-c1">3</span>, <span class="pl-c1">0.5</span>),
+  align<span class="pl-k">:</span> [<span class="pl-c1">0.5</span>, <span class="pl-c1">0.5</span>],
+  origin<span class="pl-k">:</span> [<span class="pl-c1">0.5</span>, <span class="pl-c1">0.5</span>]
+});</pre></div>
+
+<p>Not clear still on difference between origin and align.. origin for
+child, align for parent..</p>
+
+<h3>
+<a id="animations" class="anchor" href="#animations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Animations</h3>
+
+<p>Animations can be done by using setTransform on a stateModifier:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> stateModifier <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">StateModifier</span>();
+
+mainContext.<span class="pl-s3">add</span>(stateModifier).<span class="pl-s3">add</span>(surface);
+
+stateModifier.setTransform(
+  Transform.translate(<span class="pl-c1">100</span>, <span class="pl-c1">300</span>, <span class="pl-c1">0</span>),
+  { duration <span class="pl-k">:</span> <span class="pl-c1">1000</span>, curve<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>easeInOut<span class="pl-pds">'</span></span> }
+);
+
+<span class="pl-c">// This one runs after the previous animation is complete</span>
+stateModifier.setTransform(
+  Transform.translate(<span class="pl-c1">150</span>, <span class="pl-c1">10</span>, <span class="pl-c1">0</span>),
+  { duration <span class="pl-k">:</span> <span class="pl-c1">1000</span>, curve<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>easeInOut<span class="pl-pds">'</span></span> },
+  <span class="pl-st">function</span>() {
+    <span class="pl-s3">alert</span>(<span class="pl-s1"><span class="pl-pds">'</span>Done animations!<span class="pl-pds">'</span></span>)
+  }
+);</pre></div>
+
+<p>Lots of easings to use - access these ones with Easing.easeName in the
+curve option - rather than the string value above 'easeInOut'</p>
+
+<p>inQuad outQuad inOutQuad inCubic outCubic inOutCubic inQuart outQuart inOutQuart inQuint outQuint inOutQuint inSine outSine inOutSine inExpo outExpo inOutExpo inCirc outCirc inOutCirc inElastic outElastic inOutElastic inBack outBack inOutBack inBounce outBounce inOutBounce</p>
+
+<p>You can interrupt animations before they end by calling <code>halt()</code> on the
+state modifier. If you don't do another <code>setTransform</code> after halting
+then it will just jump right to the finished state of the transform that
+was halted - this will look ugly so it's best to finish it off quickly,
+like below.</p>
+
+<div class="highlight highlight-javascript"><pre>stateModifier.setTransform(
+  Transform.translate(<span class="pl-c1">0</span>, <span class="pl-c1">400</span>, <span class="pl-c1">0</span>),
+  { duration <span class="pl-k">:</span> <span class="pl-c1">8000</span>, curve<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>linear<span class="pl-pds">'</span></span> }
+);
+
+surface.on(<span class="pl-s1"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {
+  stateModifier.halt();
+  surface.setContent(<span class="pl-s1"><span class="pl-pds">'</span>halted<span class="pl-pds">'</span></span>);
+  stateModifier.setTransform(
+    Transform.translate(<span class="pl-c1">0</span>, <span class="pl-c1">400</span>, <span class="pl-c1">0</span>),
+    { duration <span class="pl-k">:</span> <span class="pl-c1">400</span>, curve<span class="pl-k">:</span> Easing.outBounce }
+  );</pre></div>
+
+<p>You can use physics transitions instead of easing curves</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> SpringTransition <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>famous/transitions/SpringTransition<span class="pl-pds">'</span></span>);
+Transitionable.registerMethod(<span class="pl-s1"><span class="pl-pds">'</span>spring<span class="pl-pds">'</span></span>, SpringTransition);
+
+stateModifier.setTransform(
+  Transform.translate(<span class="pl-c1">0</span>, <span class="pl-c1">300</span>, <span class="pl-c1">0</span>),
+  { method<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>spring<span class="pl-pds">'</span></span>, period<span class="pl-k">:</span> <span class="pl-c1">1000</span>, dampingRatio<span class="pl-k">:</span> <span class="pl-c1">0.3</span> }
+);</pre></div>
+
+<h3>
+<a id="events" class="anchor" href="#events" aria-hidden="true"><span class="octicon octicon-link"></span></a>Events</h3>
+
+<h4>
+<a id="surface-events" class="anchor" href="#surface-events" aria-hidden="true"><span class="octicon octicon-link"></span></a>Surface events</h4>
+
+<p>click mousedown mousemove mouseup mouseover mouseout touchstart touchmove touchend touchcancel keydown keyup keypress</p>
+
+<div class="highlight highlight-javascript"><pre>surface.on(<span class="pl-s1"><span class="pl-pds">'</span>mouseover<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {
+  surface.setProperties({
+    backgroundColor<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>#878785<span class="pl-pds">'</span></span>
+  });
+});
+
+surface.on(<span class="pl-s1"><span class="pl-pds">'</span>mouseout<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {
+  surface.setProperties({
+    backgroundColor<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>#FA5C4F<span class="pl-pds">'</span></span>
+  });
+});</pre></div>
+
+<p><code>touch</code> events don't work with a desktop click.</p>
+
+<h4>
+<a id="engine-events" class="anchor" href="#engine-events" aria-hidden="true"><span class="octicon octicon-link"></span></a>Engine events</h4>
+
+<div class="highlight highlight-javascript"><pre>Engine.on(<span class="pl-s1"><span class="pl-pds">'</span>keydown<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>(<span class="pl-vpf">e</span>) {
+  surface.setContent(e.which);
+});</pre></div>
+
+<p>This is like doing <code>$(document).on('click')</code> - events are first given a
+chance to be handled by the surface that they are triggered on, then
+propagate up to the Engine.</p>
+
+<p>It also has some other useful events that aren't triggered on surfaces,
+like <code>prerender</code> and <code>postrender</code> and <code>resize</code>. The render events are
+triggered approximately every 16.7ms at 60fps.</p>
+
+<div class="highlight highlight-javascript"><pre>Engine.on(<span class="pl-s1"><span class="pl-pds">'</span>resize<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {
+  surface.setContent(<span class="pl-s1"><span class="pl-pds">'</span>resized<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<h4>
+<a id="program-events" class="anchor" href="#program-events" aria-hidden="true"><span class="octicon octicon-link"></span></a>Program events</h4>
+
+<p>"Events are a way of moving information between program modules in a
+decoupled way. In Famo.us we emit, transmit, and listen to program
+events using Event Handler objects." - in other words, you can use this
+as an event bus between multiple components for inter-component communication.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> surface;
+createSurface();
+<span class="pl-s">var</span> eventHandler <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">EventHandler</span>();
+
+surface.on(<span class="pl-s1"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {
+  eventHandler.emit(<span class="pl-s1"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>);
+});
+
+eventHandler.on(<span class="pl-s1"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {
+  surface.setContent(<span class="pl-s1"><span class="pl-pds">'</span>heard hello<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<p>Not quite sure why yet, but apparently it's more common to have multiple
+event handlers which subscribe to each other.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> surfaceA, surfaceB;
+createSurfaces();
+
+<span class="pl-s">var</span> eventHandlerA <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">EventHandler</span>();
+<span class="pl-s">var</span> eventHandlerB <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">EventHandler</span>();
+
+surfaceA.on(<span class="pl-s1"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {
+  eventHandlerA.emit(<span class="pl-s1"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>);
+  surfaceA.setContent(<span class="pl-s1"><span class="pl-pds">'</span>said hello<span class="pl-pds">'</span></span>);
+});
+
+eventHandlerB.subscribe(eventHandlerA);
+<span class="pl-c">// eventHandlerA.pipe(eventHandlerB); has the same effect</span>
+<span class="pl-c">// but eventHandlerA will emit to B, which is unaware of A,</span>
+<span class="pl-c">// whereas in subscribe, eventHandlerA is unaware of B.</span>
+
+eventHandlerB.on(<span class="pl-s1"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {
+  surfaceB.setContent(<span class="pl-s1"><span class="pl-pds">'</span>heard hello<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<p>Use views to organize code and aggregate events.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> myView <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">View</span>();
+mainContext.<span class="pl-s3">add</span>(myView);
+
+<span class="pl-s">var</span> surface <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Surface</span> <span class="pl-c">// etc ..</span>
+
+myView.<span class="pl-s3">add</span>(surface);
+surface.pipe(myView);
+
+<span class="pl-c">// normally inside view module's code</span>
+myView._eventInput.on(<span class="pl-s1"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {
+  myView._eventOutput.emit(<span class="pl-s1"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>);
+});
+
+<span class="pl-c">// listening to view's events from the outside</span>
+myView.on(<span class="pl-s1"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {
+  surface.setContent(<span class="pl-s1"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<p>Unlike surfaces, views don't actually map to DOM elements - "they're
+empty render nodes with some extra features." In addition, they do not
+have a size by default. So we need to use a StateModifier to set their
+size. The following example defines a <code>SlideView</code> class, which inherits
+from the base <code>View</code> class and sets a size on it.</p>
+
+<div class="highlight highlight-javascript"><pre>define(<span class="pl-st">function</span>(<span class="pl-vpf">require</span>, <span class="pl-vpf">exports</span>, <span class="pl-vpf">module</span>) {
+  <span class="pl-s">var</span> View <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>famous/core/View<span class="pl-pds">'</span></span>);
+  <span class="pl-s">var</span> Surface <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>famous/core/Surface<span class="pl-pds">'</span></span>);
+  <span class="pl-s">var</span> Transform <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>famous/core/Transform<span class="pl-pds">'</span></span>);
+  <span class="pl-s">var</span> StateModifier <span class="pl-k">=</span> <span class="pl-s3">require</span>(<span class="pl-s1"><span class="pl-pds">'</span>famous/modifiers/StateModifier<span class="pl-pds">'</span></span>);
+
+  <span class="pl-st">function</span> <span class="pl-en">SlideView</span>() {
+    View.<span class="pl-s3">apply</span>(<span class="pl-v">this</span>, arguments);
+
+    <span class="pl-v">this</span>.rootModifier <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">StateModifier</span>({
+        size<span class="pl-k">:</span> [<span class="pl-c1">400</span>, <span class="pl-c1">450</span>]
+    });
+
+    <span class="pl-c">// saving a reference to the new node</span>
+    <span class="pl-v">this</span>.mainNode <span class="pl-k">=</span> <span class="pl-v">this</span>.<span class="pl-s3">add</span>(<span class="pl-v">this</span>.rootModifier);
+  }
+
+  <span class="pl-s3">SlideView</span>.<span class="pl-sc">prototype</span> <span class="pl-k">=</span> <span class="pl-s3">Object</span>.create(View.<span class="pl-sc">prototype</span>);
+  <span class="pl-s3">SlideView</span>.<span class="pl-sc">prototype</span>.<span class="pl-en">constructor</span> <span class="pl-k">=</span> SlideView;
+
+  SlideView.DEFAULT_OPTIONS <span class="pl-k">=</span> {};
+
+  <span class="pl-sv">module</span>.exports <span class="pl-k">=</span> SlideView;
+});</pre></div>
+
+<p>Events get captured at the surface level and do not automatically bubble up to the view</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c">// Where slide is a view, and we want this to be called whenever any of</span>
+<span class="pl-c">// the surfaces within that view are clicked.</span>
+slide.on(<span class="pl-s1"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>, <span class="pl-v">this</span>.showNextSlide.bind(<span class="pl-v">this</span>));</pre></div>
+
+<p>If there are several surfaces inside of the <code>slide</code> view here, we can
+just set some of them to have <code>pointerEvents: 'none'</code> in the properties
+and attach the click handler to whichever surface spans the whole view.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c">// Where this is the instance of the slide view</span>
+<span class="pl-c">// * Be sure to bind the callback to this also, otherwise there</span>
+<span class="pl-c">//   will be a stack overflow as it will just repeatedly emit</span>
+<span class="pl-c">//   click on the surface.</span>
+<span class="pl-c">//</span>
+background.on(<span class="pl-s1"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>, <span class="pl-st">function</span>() {
+  <span class="pl-c">// the event output handler is used to broadcast outwards</span>
+  <span class="pl-v">this</span>._eventOutput.emit(<span class="pl-s1"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>);
+}.bind(<span class="pl-v">this</span>));
+
+<span class="pl-c">// And for the other surfaces, make them not register click events</span>
+<span class="pl-c">// For example on the photo ImageSurface:</span>
+<span class="pl-s">var</span> photo <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">ImageSurface</span>({
+  size<span class="pl-k">:</span> [size, size],
+  content<span class="pl-k">:</span> <span class="pl-v">this</span>.<span class="pl-sc">options</span>.photoUrl,
+  properties<span class="pl-k">:</span> {
+    zIndex<span class="pl-k">:</span> <span class="pl-c1">2</span>,
+    pointerEvents<span class="pl-k">:</span> <span class="pl-s1"><span class="pl-pds">'</span>none<span class="pl-pds">'</span></span>
+  }
+});</pre></div>
+
+<h3>
+<a id="speaking-of-imagesurface" class="anchor" href="#speaking-of-imagesurface" aria-hidden="true"><span class="octicon octicon-link"></span></a>Speaking of ImageSurface..</h3>
+
+<p>Use this instead of setting content of <code>&lt;img&gt;</code> inside of a normal
+surface - <code>ImageSurface</code> will only be rendered as an <code>img</code> tag, whereas
+if it was within a surface it would be nested within a <code>div</code>.</p>
+
+<h3>
+<a id="pitfalls" class="anchor" href="#pitfalls" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pitfalls</h3>
+
+<ul>
+<li>It's good to set both z-index and z-translate - some browsers don't
+work properly so both will be required</li>
+</ul>
+        </section>
+
+        <footer>
+          Famo.us-practice is maintained by <a href="https://github.com/brentvatne">brentvatne</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>

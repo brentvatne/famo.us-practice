@@ -374,6 +374,44 @@ Use this instead of setting content of `<img>` inside of a normal
 surface - `ImageSurface` will only be rendered as an `img` tag, whereas
 if it was within a surface it would be nested within a `div`.
 
+### Clipping
+Surfaces are not clipped by their parent view's bounding box by default
+- eg: a transform on a 200 x 200 image that bumps it up 500px within its
+300 x 300 view will appear on the screen.
+
+To clip the surface when it goes outside of the parent bounds, we nest
+the surface within a ContainerSurface that has overflow: hidden set on
+it. A ContainerSurface is different from other surfaces in that you can
+`add` renerables to it, and it becomes a new context. Typically all
+surfaces are rendered into a flat hierarchy - in order to create
+nesting. Creating new contexts like this can cost in terms of
+performance.
+
+```javascript
+var ContainerSurface = require('famous/surfaces/ContainerSurface');
+
+function _createSlideshow() {
+  var slideshowView = new SlideshowView({
+    size: [this.options.slideWidth, this.options.slideHeight],
+    data: this.options.data
+  });
+
+  var slideshowModifier = new StateModifier({
+    origin: [0.5, 0],
+    align: [0.5, 0],
+    transform: Transform.translate(0, this.options.slidePosition, 0)
+  });
+
+  var slideshowContainer = new ContainerSurface({
+    properties: {
+      overflow: 'hidden'
+    }
+  });
+
+  this.add(slideshowModifier).add(slideshowContainer);
+  slideshowContainer.add(slideshowView);
+}
+```
 
 ### Pitfalls
 

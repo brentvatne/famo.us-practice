@@ -7,6 +7,10 @@ define(function(require, exports, module) {
   var StateModifier = require('famous/modifiers/StateModifier');
   var SlideData = require('data/SlideDataInstagram');
 
+  var Transitionable = require('famous/transitions/Transitionable');
+  var SpringTransition = require('famous/transitions/SpringTransition');
+  Transitionable.registerMethod('spring', SpringTransition);
+
   function SlideView() {
     View.apply(this, arguments);
 
@@ -15,7 +19,7 @@ define(function(require, exports, module) {
       size: this.options.size,
       origin: [0.5,0],
       align: [0.5,0]
-    })
+    });
 
     this.mainNode = this.add(this.rootModifier);
 
@@ -26,11 +30,31 @@ define(function(require, exports, module) {
 
   SlideView.prototype = Object.create(View.prototype);
   SlideView.prototype.constructor = SlideView;
+  SlideView.prototype.fadeIn = function() {
+    this.photoModifier.setOpacity(1, { duration: 1000, curve: 'easeIn' });
+    this.shake();
+  };
+
+  SlideView.prototype.shake = function() {
+    this.rootModifier.halt();
+
+    this.rootModifier.setTransform(
+      Transform.rotateX(this.options.angle),
+      { duration: 200, curve: 'easeOut' }
+    );
+
+    this.rootModifier.setTransform(
+      Transform.identity,
+      { method: 'spring', period: 600, dampingRatio: 0.3 }
+    );
+  };
+
   SlideView.DEFAULT_OPTIONS = {
     size: [400, 350],
     filmBorder: 15,
     photoBorder: 3,
-    photoUrl: SlideData.defaultImage
+    photoUrl: SlideData.defaultImage,
+    angle: -0.5
   };
 
   function _createBackground() {
@@ -84,13 +108,14 @@ define(function(require, exports, module) {
     // positioning is done through transform: translate - because the view is
     // larger than it is wide and we don't quite want it vertically centered.
     //
-    var photoModifier = new StateModifier({
+    this.photoModifier = new StateModifier({
       origin: [0.5, 0],
       align: [0.5, 0],
-      transform: Transform.translate(0, this.options.filmBorder + this.options.photoBorder, 2)
+      transform: Transform.translate(0, this.options.filmBorder + this.options.photoBorder, 2),
+      opacity: 0.01
     })
 
-    this.mainNode.add(photoModifier).add(photo);
+    this.mainNode.add(this.photoModifier).add(photo);
   }
 
   module.exports = SlideView;
